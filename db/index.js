@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://sekarmca2024_db_user:Sekar%409585@deepdivemongodb.rgawohi.mongodb.net/DeepDiveMongoDB?appName=DeepDiveMongoDB')
+mongoose.connect('MongoDB URL')
   .then(() => console.log('MongoDB connected successfully'))
   .catch(err => console.error('MongoDB connection error:', err));
 // Define schemas
