@@ -1,82 +1,59 @@
+==========================================
+Project Structure
+==========================================
 
-### Admin Routes
+Course-App-Backend/
+│
+├── db/
+│   └── index.js              # Database connection and models
+│
+├── middleware/
+│   ├── admin.js              # Admin authentication middleware
+│   └── user.js               # User authentication middleware
+│
+├── routes/
+│   ├── admin.js              # Admin routes (signup, courses)
+│   └── user.js               # User routes (signup, courses, purchases)
+│
+├── index.js                  # Main server file
+├── package.json              # Dependencies
+├── package-lock.json         # Dependency lock file
+├── readme.txt                # This file
+└── .gitignore                # Git ignore file
 
-- POST /admin/signup  
-  Description: Creates a new admin account.  
-  Input Body: { username: 'admin', password: 'pass' }  
-  Output: { message: 'Admin created successfully' }
+==========================================
+Database Models
+==========================================
 
-- POST /admin/courses  
-  Description: Creates a new course.  
-  Input:  
-  Headers: { 'username': 'username', 'password': 'password' }  
-  Body: {  
-    title: 'course title',  
-    description: 'course description',  
-    price: 100,  
-    imageLink: 'https://linktoimage.com'  
-  }  
-  Output: { message: 'Course created successfully', courseId: 'new course id' }
+1. Admin Schema:
+   - username: String
+   - password: String
 
-- GET /admin/courses  
-  Description: Returns all the courses.  
-  Input: Headers: { 'username': 'username', 'password': 'password' }  
-  Output: {  
-    courses: [  
-      {  
-        id: 1,  
-        title: 'course title',  
-        description: 'course description',  
-        price: 100,  
-        imageLink: 'https://linktoimage.com',  
-        published: true  
-      },  
-      ...  
-    ]  
-  }
+2. User Schema:
+   - username: String
+   - password: String
+   - purchaseCourse: Array of Course ObjectIds
 
+3. Course Schema:
+   - title: String
+   - description: String
+   - imageLink: String
+   - price: Number
 
+==========================================
+Dependencies
+==========================================
 
-### User routes
+- express: Web framework
+- body-parser: Parse incoming request bodies
+- mongoose: MongoDB object modeling
 
-- POST /users/signup  
-  Description: Creates a new user account.  
-  Input: { username: 'user', password: 'pass' }  
-  Output: { message: 'User created successfully' }
+==========================================
+Notes
+==========================================
 
-- GET /users/courses  
-  Description: Lists all the courses.  
-  Input: Headers: { 'username': 'username', 'password': 'password' }  
-  Output: {  
-    courses: [  
-      {  
-        id: 1,  
-        title: 'course title',  
-        description: 'course description',  
-        price: 100,  
-        imageLink: 'https://linktoimage.com',  
-        published: true  
-      },  
-      ...  
-    ]  
-  }
-
-- POST /users/courses/:courseId  
-  Description: Purchases a course. courseId in the URL path should be replaced with the ID of the course to be purchased.  
-  Input: Headers: { 'username': 'username', 'password': 'password' }  
-  Output: { message: 'Course purchased successfully' }
-
-- GET /users/purchasedCourses  
-  Description: Lists all the courses purchased by the user.  
-  Input: Headers: { 'username': 'username', 'password': 'password' }  
-  Output: {  
-    purchasedCourses: [  
-      {  
-        id: 1,  
-        title: 'course title',  
-        description: 'course description',  
-        price: 100,  
-        imageLink: 'https://linktoimage.com'  
-      }  
-    ]  
-  }
+- All passwords should be hashed in production (currently stored as plain text)
+- Add JWT tokens for better authentication in production
+- Add input validation for all endpoints
+- Add error handling middleware
+- Add CORS configuration for frontend integration
